@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#09051b">
+  <title>NEON PULSE</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="app">
+
+    <!-- MAIN MENU -->
+    <section id="main-menu" class="screen active">
+      <div class="menu-content">
+        <div class="brand-tag">NEON ARCADE EXPERIENCE</div>
+        <h1 class="logo">NEON <span>PULSE</span></h1>
+        <p class="tagline">DODGE • SURVIVE • DOMINATE</p>
+
+        <div class="menu-stats">
+          <div class="menu-stat">
+            <small>BEST SCORE</small>
+            <strong id="menu-best">0</strong>
+          </div>
+          <div class="menu-stat">
+            <small>YOUR GEMS</small>
+            <strong id="menu-gems">0 💎</strong>
+          </div>
+        </div>
+
+        <button id="start-button" class="primary-btn">▶ PLAY GAME</button>
+
+        <div class="menu-grid">
+          <button id="shop-button" class="menu-btn">🛒 SHOP</button>
+          <button id="skins-button" class="menu-btn">🎭 SKINS</button>
+          <button id="missions-button" class="menu-btn">🏆 MISSIONS</button>
+          <button id="rewards-button" class="menu-btn">🎁 DAILY REWARD</button>
+          <button id="settings-button" class="menu-btn">⚙ SETTINGS</button>
+          <button id="how-button" class="menu-btn">❔ HOW TO PLAY</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- GAME SCREEN -->
+    <section id="game-screen" class="screen">
+      <div class="game-hud">
+
+        <div class="hud-box">
+          <small>SCORE</small>
+          <strong id="score">0</strong>
+        </div>
+
+        <div class="hud-box">
+          <small>COMBO</small>
+          <strong id="combo">x1</strong>
+        </div>
+
+        <div class="hud-box gem-box">
+          <small>GEMS</small>
+          <strong id="gem-count">0</strong>
+        </div>
+
+        <div class="hud-box">
+          <small>BEST</small>
+          <strong id="game-best">0</strong>
+        </div>
+
+        <button id="pause-button" class="pause-btn">Ⅱ</button>
+      </div>
+
+      <div id="powerup-hud" class="powerup-hud">
+        <div id="shield-status" class="powerup-status">
+          <span>🛡️</span>
+          <strong>SHIELD</strong>
+          <small id="shield-timer">0s</small>
+        </div>
+        <div id="magnet-status" class="powerup-status">
+          <span>🧲</span>
+          <strong>MAGNET</strong>
+          <small id="magnet-timer">0s</small>
+        </div>
+        <div id="speed-status" class="powerup-status">
+          <span>⚡</span>
+          <strong>BOOST</strong>
+          <small id="speed-timer">0s</small>
+        </div>
+      </div>
+
+      <canvas id="game-canvas"></canvas>
+
+      <div class="game-hint">TAP TO SWITCH LANES</div>
+    </section>
+
+    <!-- PAUSE SCREEN -->
+    <section id="pause-screen" class="screen overlay-screen">
+      <div class="panel">
+        <div class="panel-icon">⏸️</div>
+        <h2>GAME PAUSED</h2>
+        <p>Take a breath. The neon world is waiting.</p>
+        <button id="resume-button" class="primary-btn">▶ RESUME</button>
+        <button id="pause-home-button" class="secondary-btn">⌂ MAIN MENU</button>
+      </div>
+    </section>
+
+    <!-- GAME OVER -->
+    <section id="game-over" class="screen overlay-screen">
+      <div class="panel">
+        <div class="panel-icon">💥</div>
+        <h2>GAME OVER</h2>
+        <p class="result-label">YOUR SCORE</p>
+        <strong id="final-score" class="final-score">0</strong>
+        <p id="record-message">Keep pushing your limits!</p>
+        <button id="retry-button" class="primary-btn">↻ PLAY AGAIN</button>
+        <button id="home-button" class="secondary-btn">⌂ MAIN MENU</button>
+      </div>
+    </section>
+
+    <!-- SHOP -->
+    <section id="shop-screen" class="screen">
+      <div class="subpage">
+        <button class="back-button" data-back="main-menu">← BACK</button>
+        <h2>POWER-UP SHOP</h2>
+        <p class="page-subtitle">Upgrade your survival experience</p>
+        <div class="wallet">💎 <strong id="shop-gems">0</strong></div>
+
+        <div class="item-card">
+          <span class="item-icon">🛡️</span>
+          <div class="item-info">
+            <strong>SHIELD UPGRADE</strong>
+            <small>Extra protection duration</small>
+            <small id="shield-level">Level 1</small>
+          </div>
+          <button class="buy-button" data-upgrade="shield">100 💎</button>
+        </div>
+
+        <div class="item-card">
+          <span class="item-icon">🧲</span>
+          <div class="item-info">
+            <strong>MAGNET UPGRADE</strong>
+            <small>Longer gem attraction</small>
+            <small id="magnet-level">Level 1</small>
+          </div>
+          <button class="buy-button" data-upgrade="magnet">100 💎</button>
+        </div>
+
+        <div class="item-card">
+          <span class="item-icon">⚡</span>
+          <div class="item-info">
+            <strong>SPEED UPGRADE</strong>
+            <small>Longer score boost</small>
+            <small id="speed-level">Level 1</small>
+          </div>
+          <button class="buy-button" data-upgrade="speed">100 💎</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKINS -->
+    <section id="skins-screen" class="screen">
+      <div class="subpage">
+        <button class="back-button" data-back="main-menu">← BACK</button>
+        <h2>CHARACTER SKINS</h2>
+        <p class="page-subtitle">Choose your neon identity</p>
+        <div class="wallet">💎 <strong id="skins-gems">0</strong></div>
+        <div id="skins-list" class="skins-list"></div>
+      </div>
+    </section>
+
+    <!-- MISSIONS -->
+    <section id="missions-screen" class="screen">
+      <div class="subpage">
+        <button class="back-button" data-back="main-menu">← BACK</button>
+        <h2>ACHIEVEMENTS</h2>
+        <p class="page-subtitle">Complete challenges and earn rewards</p>
+        <div id="missions-list" class="missions-list"></div>
+      </div>
+    </section>
+
+    <!-- DAILY REWARD -->
+    <section id="rewards-screen" class="screen">
+      <div class="subpage centered-page">
+        <button class="back-button" data-back="main-menu">← BACK</button>
+        <div class="reward-icon">🎁</div>
+        <h2>DAILY REWARD</h2>
+        <p>Come back every day for free gems!</p>
+        <div class="reward-amount">💎 +50</div>
+        <button id="claim-reward-button" class="primary-btn">CLAIM REWARD</button>
+        <small id="reward-status">Your daily gift is waiting.</small>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="settings-screen" class="screen">
+      <div class="subpage">
+        <button class="back-button" data-back="main-menu">← BACK</button>
+        <h2>SETTINGS</h2>
+        <p class="page-subtitle">Customize your experience</p>
+
+        <div class="setting-row">
+          <span>Sound Effects</span>
+          <label class="switch">
+            <input type="checkbox" id="sound-toggle" checked>
+            <span class="switch-slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <span>Screen Shake</span>
+          <label class="switch">
+            <input type="checkbox" id="shake-toggle" checked>
+            <span class="switch-slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <span>Vibration</span>
+          <label class="switch">
+            <input type="checkbox" id="vibration-toggle" checked>
+            <span class="switch-slider"></span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW TO PLAY -->
+    <section id="how-screen" class="screen">
+      <div class="subpage">
+        <button class="back-button" data-back="main-menu">← BACK</button>
+        <h2>HOW TO PLAY</h2>
+
+        <div class="instruction-card">
+          <span>👆</span>
+          <div>
+            <strong>SWITCH LANES</strong>
+            <p>Tap anywhere on the game screen to switch lanes.</p>
+          </div>
+        </div>
+
+        <div class="instruction-card">
+          <span>🚧</span>
+          <div>
+            <strong>AVOID OBSTACLES</strong>
+            <p>Dodge obstacles and survive as long as possible.</p>
+          </div>
+        </div>
+
+        <div class="instruction-card">
+          <span>💎</span>
+          <div>
+            <strong>COLLECT GEMS</strong>
+            <p>Collect gems to unlock skins and upgrades.</p>
+          </div>
+        </div>
+
+        <div class="instruction-card">
+          <span>🛡️</span>
+          <div>
+            <strong>USE POWER-UPS</strong>
+            <p>Shield, Magnet and Speed can help you survive.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
